@@ -2,10 +2,29 @@
 
 # Check that Roman numeral has valid format
 def isValidRoman(roman):
+    # If number is too long, return false
     inputlength = len(roman)
-    if inputlength > 5
+    if inputlength > 5:
         return False
-    # check for other invalid formats
+
+    roman = roman.upper()
+
+    if "MMMMM" in roman:
+        return False
+
+    # Search for invalid sequences within Roman number
+    invalid4combo = ["IIII", "XXXX", "CCCC"]
+    for i in xrange(inputlength-3):
+        if roman[i:i+4] in invalid4combo:
+            return False
+
+    invalid3combo = ["VIV", "VIX", "IXV", "IIV", "IVI", "IIX", "IXI", "IXX",
+                     "IXL", "IXC", "XXL", "XLX", "XXC", "XCX", "XCC", "XCD",
+                     "XCM", "LXL", "LXC", "XCL", "CCD", "CDC", "CCM", "CMC",
+                     "CMM", "DCD", "DCM", "CMD"]
+    for i in xrange(inputlength-2):
+        if roman[i:i+3] in invalid3combo:
+            return False
 
 # Convert Roman numeral to integer
 def romToInt():
