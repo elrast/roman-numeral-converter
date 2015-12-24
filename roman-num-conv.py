@@ -7,8 +7,7 @@ def isValidRoman(roman):
     if inputlength > 5:
         return False
 
-    roman = roman.upper()
-
+    # Exceeds maximum possible
     if "MMMMM" in roman:
         return False
 
@@ -26,13 +25,55 @@ def isValidRoman(roman):
         if roman[i:i+3] in invalid3combo:
             return False
 
+    invalid2combo = ["VV", "VX", "VL", "VC", "VD", "VM", "IL", "IC", "ID",
+                     "IM", "XD", "XM", "LL", "LC", "LD", "LD", "DD", "DM"]
+    for i in xrange(inputlength-1):
+        if roman[i:i+2] in invalid2combo:
+            return False
+
+    # Else, return true
+    return True
+
+
+
 # Convert Roman numeral to integer
 def romToInt():
-    convert = str(raw_input("Enter the Roman numeral to convert: "))
-    if isValidRoman(convert)
-        # do things
+    roman = str(raw_input("Enter the Roman numeral to convert: "))
+    roman = roman.upper()
+    if not isValidRoman(roman):
+        return "Invalid Roman numeral"
+    else:
+        romanValues = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
+        numeric = 0
+        for digit in roman:
+            if digit in romanValues:
+                numeric += romanValues[digit]
+            else:
+                return "Invalid letter in Roman numeral"
+        # Correct initial calculation
+        if "IV" in roman:
+            numeric -= 2
+        if "IX" in roman:
+            numeric -= 2
+        if "XL" in roman:
+            numeric -= 20
+        if "XC" in roman:
+            numeric -= 20
+        if "CD" in roman:
+            numeric -= 200
+        if "CM" in roman:
+            numeric -= 200
+
+        return numeric
+
+
 
 # Convert integer to Roman numeral
+def intToRom():
+    integer = int(raw_input("Enter the integer to convert: "))
+    if integer >= 5000 or integer < 1
+        return "Invalid integer input"
+    # do things
 
 # Get input to convert
 convtype = ""
