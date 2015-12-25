@@ -1,4 +1,4 @@
 # roman-numeral-converter
 Learning Python
 
-A converter that will accept either a Roman numeral or an integer and convert to an integer or Roman numeral, respectively.
+A program that will convert Roman numerals to integers and integers to Roman numerals.
