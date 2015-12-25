@@ -4,8 +4,6 @@
 def isValidRoman(roman):
     # If number is too long, return false
     inputlength = len(roman)
-    if inputlength > 5:
-        return False
 
     # Exceeds maximum possible
     if "MMMMM" in roman:
@@ -26,7 +24,7 @@ def isValidRoman(roman):
             return False
 
     invalid2combo = ["VV", "VX", "VL", "VC", "VD", "VM", "IL", "IC", "ID",
-                     "IM", "XD", "XM", "LL", "LC", "LD", "LD", "DD", "DM"]
+                     "IM", "XD", "XM", "LL", "LC", "LD", "DD", "DM"]
     for i in xrange(inputlength-1):
         if roman[i:i+2] in invalid2combo:
             return False
@@ -70,17 +68,84 @@ def romToInt():
 
 # Convert integer to Roman numeral
 def intToRom():
-    integer = int(raw_input("Enter the integer to convert: "))
-    if integer >= 5000 or integer < 1
+    numeral = ""
+    integer = raw_input("Enter the integer to convert: ")
+    value = int(integer)
+
+    if value >= 5000 or value < 1:
         return "Invalid integer input"
-    # do things
+
+    while len(integer) < 4:
+        integer = "0" + integer
+
+    thousands = int(integer[0])
+    hundreds = int(integer[1])
+    tens = int(integer[2])
+    ones = int(integer[3])
+
+    if thousands < 1:
+        pass
+    else:
+        numeral += "M" * thousands
+
+    if hundreds < 4:
+        numeral += "C" * hundreds
+    elif hundreds == 4:
+        numeral += "CD"
+    elif hundreds < 9:
+        numeral += "D" + "C" * (hundreds-5)
+    elif hundreds == 9:
+        numeral += "CM"
+    else:
+        pass
+
+    if tens < 4:
+        numeral += "X" * tens
+    elif tens == 4:
+        numeral += "XL"
+    elif tens < 9:
+        numeral += "L" + "X" * (tens-5)
+    elif tens == 9:
+        numeral += "XC"
+    else:
+        pass
+
+    if ones < 4:
+        numeral += "I" * ones
+    elif ones == 4:
+        numeral += "IV"
+    elif ones < 9:
+        numeral += "X" + "I" * (ones-5)
+    elif ones == 9:
+        numeral += "IX"
+    else:
+        pass
+
+    return numeral
+
+
+# Print welcome message
+def intro():
+    print "===== Welcome to the Roman numeral converter! ====="
 
 # Get input to convert
-convtype = ""
-convtype = raw_input("Enter 'R' to convert a Roman numeral to an integer.\nOr, enter 'I' to convert from an integer to a Roman numeral: ")
-if convtype == "R"
-    romToInt()
-elif convtype == "I"
-    intToRom()
-else
-    print "Invalid choice! Try again."
+def main():
+    convtype = ""
+    convtype = raw_input("A) Roman numeral --> integer\nB) Integer --> Roman numeral\n")
+    if convtype == "A" or convtype == "a":
+        print romToInt()
+    elif convtype == "B" or convtype == "b":
+        print intToRom()
+    else:
+        print "Invalid choice! Try again."
+    keepgoing = raw_input("Do you want to try again? Y/N: ")
+    if keepgoing == "Y" or keepgoing == "y":
+        main()
+    else:
+        print "Thank you for playing!"
+        raw_input("> Hit enter to close window")
+
+
+if __name__ == "__main__":
+    intro()
+    main()
